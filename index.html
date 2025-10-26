@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestro Aniversario 💞</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0b3ff, #d9aaff, #e6ccff); /* morado pastel */
+    color: #4b0082;
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+  }
+
+  .container {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* candado sobre los emojis */
+  }
+
+  /* Candado estilo bicicleta */
+  .lock {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 10px;
+  }
+
+  .lock input {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #4b0082;
+    background-color: #dabfff; /* morado pastel input */
+    color: #4b0082;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .lock input:focus {
+    transform: scale(1.1);
+    border-color: #ff69b4;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 12px 24px;
+    background: #ffb3d9;
+    border: none;
+    border-radius: 12px;
+    color: #4b0082;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #ff69b4;
+    color: white;
+  }
+
+  h1, p {
+    font-weight: 600;
+    text-shadow: none; /* eliminar brillo */
+  }
+
+  .hidden { display: none; }
+
+  .main-page { display: none; text-align: center; padding: 20px; }
+
+  .links a {
+    display: block;
+    margin: 10px auto;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: #4b0082;
+    width: fit-content;
+    transition: 0.3s;
+  }
+
+  .links a:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+  }
+
+  /* Emojis parpadeando por toda la pantalla */
+  .emoji {
+    position: absolute;
+    font-size: 1.5em;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: blink infinite alternate;
+  }
+
+  @keyframes blink {
+    0% { opacity: 0.2; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.2; transform: scale(0.9); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="lock">
+  <h1>🔒 Adivina la clave 💕</h1>
+  <p>Ingresa la fecha en que empezó nuestra historia</p>
+  
+  <div class="lock">
+    <input type="text" id="d1" maxlength="2" placeholder="dd">
+    <input type="text" id="m1" maxlength="7" placeholder="mes">
+    <input type="text" id="y1" maxlength="4" placeholder="yyyy">
+  </div>
+
+  <button onclick="verificarClave()">Desbloquear 💌</button>
+  <p id="mensaje"></p>
+</div>
+
+<div class="main-page" id="mainPage">
+  <h1>💞 ¡Feliz Aniversario, mi amor! 💞</h1>
+  <p>Has abierto nuestro mundo de amor. Explora cada rincón con tu corazón 💫</p>
+  
+  <div class="links">
+    <a href="corazon3d.html" target="_blank">💖 Corazón 3D</a>
+    <a href="carta.html" target="_blank">💌 Carta Halloween</a>
+    <a href="100maneras.html" target="_blank">💘 100 maneras de amarte y una para dejarte</a>
+    <a href="carreras.html" target="_blank">🏎️ Juego Rápidos y Furiosos</a>
+    <a href="luna.html" target="_blank">🌙 Carta bajo la luz de la luna</a>
+    <a href="spiderman.html" target="_blank">🕸️Spiderman & Spidergirl</a>
+    <a href="estrellas.html" target="_blank">✨ Cielo de Estrellas</a>
+  </div>
+</div>
+
+<script>
+  // Crear emojis parpadeando y distribuirlos uniformemente
+  const emojis = ["💖","💌","💕","💘","💞","💝","💓","💟","💗"];
+  const totalEmojis = 120; // más emojis para cubrir toda la pantalla
+
+  for(let i=0; i<totalEmojis; i++){
+    const e = document.createElement("div");
+    e.classList.add("emoji");
+    e.style.left = Math.random() * 100 + "vw"; 
+    e.style.top = Math.random() * 100 + "vh"; 
+    e.style.fontSize = 14 + Math.random()*24 + "px";
+    e.style.animationDuration = 1.5 + Math.random()*2 + "s"; 
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    document.body.appendChild(e);
+  }
+
+  function verificarClave() {
+    const dia = document.getElementById("d1").value.trim();
+    const mes = document.getElementById("m1").value.trim().toLowerCase();
+    const año = document.getElementById("y1").value.trim();
+    const clave = `${dia}/${mes}/${año}`;
+    const mensaje = document.getElementById("mensaje");
+
+    if (clave === "26/julio/2025") {
+      document.getElementById("lock").style.display = "none";
+      document.getElementById("mainPage").style.display = "block";
+    } else {
+      mensaje.textContent = "❌ Esa no es la fecha, amor. Intenta otra vez 💔";
+    }
+  }
+</script>
+
+</body>
+</html>
+

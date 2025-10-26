@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 razones para amarte 💞</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;500&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #c5a4e3, #d9b3ff, #f5ccff);
+    color: #4b004b;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: 'Sacramento', cursive;
+    font-size: 3em;
+    margin-top: 50px;
+    color: #7a00b8;
+    text-shadow: 0 0 10px #ffffffa1;
+  }
+
+  .contenedor {
+    max-width: 800px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 0 25px rgba(180, 100, 255, 0.5);
+    backdrop-filter: blur(6px);
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 20px;
+    background: #b066ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #9b4dff;
+    transform: scale(1.05);
+  }
+
+  .frase {
+    font-size: 1.4em;
+    margin-top: 30px;
+    line-height: 1.6;
+    min-height: 80px;
+    color: #4b004b;
+    animation: aparecer 1s ease-in-out;
+  }
+
+  .frase-no {
+    font-size: 1.2em;
+    color: #ff0066;
+    margin-top: 10px;
+    font-style: italic;
+    display: none;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .amor {
+    position: absolute;
+    font-size: 20px;
+    animation: flotar 8s linear infinite;
+    opacity: 0.8;
+    user-select: none;
+  }
+
+  @keyframes flotar {
+    0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+    30% { opacity: 1; }
+    70% { opacity: 1; transform: translateY(-20vh) scale(1.1); }
+    100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+  }
+
+  .volver {
+    display: inline-block;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #4b004b;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .volver:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+</style>
+</head>
+<body>
+
+<h1>💘 100 razones para amarte 💘</h1>
+
+<div class="contenedor">
+  <p class="frase" id="frase">Haz clic en el botón para descubrir una manera más de amarte 💫</p>
+  <p class="frase-no" id="fraseNo">Razón para no amarte: <strong>No hay ninguna 💖</strong></p>
+  <button id="boton">💞 Mostrar otra manera</button><br>
+  <a href="index.html">← Volver al inicio</a>
+</div>
+
+<script>
+const frasesOriginales = [
+"Me encanta cómo siempre me haces sentir segura.",
+  "Adoro tu sentido del humor, que hace que cualquier día sea mejor.",
+  "Me gusta cómo me escuchas incluso cuando no digo nada.",
+  "Me inspira tu honestidad y transparencia.",
+  "Me fascina tu valentía frente a los desafíos.",
+  "Me hace feliz que compartas tus sueños conmigo.",
+  "Amo los pequeños detalles que me hacen sonreír.",
+  "Me encanta tu sonrisa, que ilumina cualquier momento.",
+  "Me encanta cómo me haces sentir que podemos con todo juntos.",
+  "Admiro tu paciencia conmigo.",
+  "Me encanta que celebres mis logros como si fueran tuyos.",
+  "Me hace sentir especial tu confianza en mí.",
+  "Amo tus abrazos, que me dan paz y seguridad.",
+  "Me hace sentir amada tu ternura en los gestos simples.",
+  "Adoro cómo me animas a perseguir mis metas.",
+  "Me hace reír incluso en los momentos difíciles.",
+  "Me gusta cómo tus palabras siempre me reconfortan.",
+  "Amo que me aceptes tal como soy, con defectos y virtudes.",
+  "Me encanta que compartas tus secretos y sueños conmigo.",
+  "Me encanta que seas tú, y eso me basta para amarte.",
+  "Me hace feliz tu manera de sorprenderme.",
+  "Me encanta cómo me apoyas sin juzgarme.",
+  "Admiro tu generosidad y tu corazón noble.",
+  "Me hace sentir especial tu atención a los detalles.",
+  "Amo cómo respiras tranquilidad cuando estamos juntos.",
+  "Me encanta cómo haces que los días normales se sientan mágicos.",
+  "Adoro tu lealtad hacia mí y hacia quienes amas.",
+  "Me fascina tu carisma y tu manera de relacionarte con el mundo.",
+  "Me hace sentir querida tu paciencia y cuidado.",
+  "Me encanta cómo compartes tus pasiones conmigo.",
+  "Amo que me hagas sentir única cada día.",
+  "Me inspira tu forma de superar obstáculos.",
+  "Me encanta cómo te preocupas por los demás.",
+  "Adoro tu curiosidad y ganas de aprender siempre.",
+  "Me hace feliz tu manera de valorar lo simple de la vida.",
+  "Amo cómo celebras los pequeños logros conmigo.",
+  "Me encanta tu manera de equilibrar diversión y responsabilidad.",
+  "Admiro cómo enfrentas los errores y pides perdón.",
+  "Me hace sentir especial cuando me das tu tiempo y atención.",
+  "Amo cómo me haces sentir que todo es posible.",
+  "Me encanta cómo me haces sentir segura incluso en silencio.",
+  "Adoro tu voz, que me calma y reconforta.",
+  "Me hace feliz tu manera de tomarme de la mano.",
+  "Amo cómo me haces sentir que soy parte de tu mundo.",
+  "Me inspira tu honestidad, incluso cuando es difícil.",
+  "Me encanta cómo me haces reír sin esfuerzo.",
+  "Adoro tu forma de mirar que me hace sonreír.",
+  "Me hace feliz tu manera de cuidarme sin que lo pida.",
+  "Amo tu paciencia con mis emociones y momentos difíciles.",
+  "Me encanta cómo me apoyas en mis locuras.",
+  "Me hace sentir amada tu cercanía y ternura.",
+  "Adoro cómo me haces sentir que somos un equipo.",
+  "Me inspira tu constancia y dedicación en todo lo que haces.",
+  "Me encanta que compartas tus alegrías y tristezas conmigo.",
+  "Amo cómo tu risa me contagia y me alegra.",
+  "Me hace feliz tu manera de sorprenderme cuando menos lo espero.",
+  "Me encanta cómo celebras la vida a tu manera.",
+  "Adoro cómo valoras nuestras conversaciones.",
+  "Me hace sentir especial tu manera de recordarme cosas lindas.",
+  "Amo cómo me aceptas completamente, sin condiciones.",
+  "Me encanta cómo me haces sentir que juntos somos invencibles.",
+  "Adoro tu manera de disfrutar los momentos simples conmigo.",
+  "Me hace feliz tu generosidad con los demás.",
+  "Amo cómo me animas a ser mejor persona cada día.",
+  "Me encanta cómo compartes tus sueños y metas.",
+  "Adoro cómo me haces sentir amada solo con mirarme.",
+  "Me hace feliz tu manera de celebrar nuestras pequeñas victorias.",
+  "Me encanta cómo tu presencia llena cualquier lugar de energía.",
+  "Amo tu creatividad y tu forma de sorprenderme siempre.",
+  "Me inspira tu fuerza y determinación.",
+  "Me hace feliz tu manera de reírte de ti mismo.",
+  "Amo cómo me apoyas en mis decisiones importantes.",
+  "Me encanta cómo tu abrazo puede calmar cualquier miedo.",
+  "Adoro tu manera de hacerme sentir que soy suficiente.",
+  "Me hace feliz cómo compartimos nuestros secretos y confidencias.",
+  "Amo cómo me inspiras a perseguir mis sueños.",
+  "Me encanta cómo haces que los días ordinarios sean extraordinarios.",
+  "Adoro tu estilo único y cómo refleja tu personalidad.",
+  "Me hace feliz tu curiosidad y ganas de aprender cosas nuevas.",
+  "Amo cómo me haces sentir que siempre puedo contar contigo.",
+  "Me encanta cómo me respetas y valoras mi espacio.",
+  "Adoro tu manera de hacerme sentir especial en los momentos más simples.",
+  "Me hace feliz cómo celebras mis logros sin envidia.",
+  "Amo cómo compartes tu mundo conmigo con orgullo.",
+  "Me encanta tu paciencia en las situaciones difíciles.",
+  "Adoro cómo me haces sentir amada sin necesidad de palabras.",
+  "Me hace feliz tu manera de escuchar y realmente entenderme.",
+  "Amo cómo tu sonrisa puede alegrar cualquier día gris.",
+  "Me encanta cómo me haces sentir que somos invencibles juntos.",
+  "Adoro tu forma de sorprenderme con detalles inesperados.",
+  "Me hace feliz tu manera de hacerme sentir prioridad.",
+  "Amo cómo me apoyas en mis miedos y dudas.",
+  "Me encanta cómo tu mirada transmite ternura y cuidado.",
+  "Adoro cómo celebras la vida y me incluyes en tu alegría.",
+  "Me hace feliz tu generosidad y bondad hacia todos.",
+  "Amo cómo me haces sentir que puedo confiar en ti plenamente.",
+  "Me encanta cómo me haces sentir amada solo con tu presencia.",
+  "Adoro tu forma de afrontar la vida con fuerza y ternura a la vez.",
+  "Te amo eternamente",
+  "Me hace feliz que seas tú, sin cambiar nada de ti.",
+  "Y, sobre todo, te amo simplemente por ser la persona increíble que eres."
+];
+
+let frases = [...frasesOriginales];
+
+const fraseElement = document.getElementById('frase');
+const fraseNoElement = document.getElementById('fraseNo');
+const boton = document.getElementById('boton');
+
+function mostrarFrase() {
+  if (frases.length === 0) {
+    // Ya se mostraron todas, mostrar la razón para no amarlo
+    fraseNoElement.style.display = 'block';
+    fraseElement.textContent = "¡Has visto todas las razones para amarte! 💖";
+    boton.disabled = true; // desactiva el botón
+    return;
+  }
+
+  const indiceAleatorio = Math.floor(Math.random() * frases.length);
+  const fraseElegida = frases.splice(indiceAleatorio, 1)[0];
+  fraseElement.textContent = fraseElegida;
+
+  crearAnimacionAmor();
+}
+
+function crearAnimacionAmor() {
+  const simbolos = ['💞', '💋', '💫', '💐', '❤️', '🌸', '✨'];
+  const elem = document.createElement('div');
+  elem.className = 'amor';
+  elem.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+  elem.style.left = Math.random() * 100 + '%';
+  elem.style.animationDuration = 5 + Math.random() * 4 + 's';
+  elem.style.fontSize = 20 + Math.random() * 25 + 'px';
+  document.body.appendChild(elem);
+  setTimeout(() => elem.remove(), 8000);
+}
+
+setInterval(crearAnimacionAmor, 2000);
+boton.addEventListener('click', mostrarFrase);
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz 3er mes amor mio</title>
+<style>
+body, html {
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:black;
+  font-family:sans-serif;
+  color:white;
+}
+
+h1 {
+  text-align:center;
+  margin:20px 0;
+  font-size:3rem;
+  font-weight:bold;
+  color:#ffb6c1; /* rosa pastel */
+}
+
+.emoji { font-size:1.2em; }
+
+.scene {
+  position:relative;
+  width:100%;
+  height:calc(100% - 80px);
+}
+
+.phrase {
+  position:absolute;
+  font-size:0.95rem;
+  color:white;
+  text-shadow:0 0 4px #ff6b9a50;
+  white-space: nowrap; /* evita salto de línea */
+}
+
+.heart3d {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+.mini-heart {
+  position:absolute;
+  font-size:10px;
+  color:#ff4b7c;
+  text-shadow:0 0 4px #ff4b7c60;
+}
+
+.star {
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+}
+
+.smallHearts {
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+}
+
+/* --- Estilo para el botón "Volver al inicio" --- */
+.volver {
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background: rgba(255, 105, 180, 0.2);
+  padding: 10px 25px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+  z-index: 999;
+}
+
+.volver:hover {
+  background: rgba(255, 105, 180, 0.5);
+}
+</style>
+</head>
+<body>
+
+<h1>Feliz 3er mes amor mio <span class="emoji">💘</span></h1>
+
+<div class="scene">
+  <div id="smallHearts" class="smallHearts"></div>
+  <div id="spiral"></div>
+  <div id="heart3d" class="heart3d"></div>
+</div>
+
+<!-- Botón para volver al inicio -->
+<a href="index.html" class="volver">← Volver al inicio</a>
+
+<script>
+// --- Estrellas y mini corazones ---
+const smallHeartsContainer = document.getElementById("smallHearts");
+for(let i=0;i<100;i++){
+  const star = document.createElement("div");
+  star.className="star";
+  star.style.left = Math.random()*100+"%";
+  star.style.top = Math.random()*100+"%";
+  smallHeartsContainer.appendChild(star);
+}
+for(let i=0;i<50;i++){
+  const heart = document.createElement("div");
+  heart.className="mini-heart";
+  heart.textContent="❤";
+  heart.style.left = Math.random()*100+"%";
+  heart.style.top = Math.random()*100+"%";
+  smallHeartsContainer.appendChild(heart);
+}
+
+// --- Frases distribuidas uniformemente ---
+const frases = [
+"Eres mi pensamiento favorito.","Contigo aprendí lo que es hogar.","Tu risa cambia mis días.",
+"Cada minuto a tu lado vale oro.","Eres mi paz y mi aventura.","Caminar contigo es mi lugar favorito.",
+"Tu mirada me entiende sin palabras.","A tu lado todo es más brillante.","Eres la canción que no quiero dejar de escuchar.",
+"Me robas sonrisas a diario.","Gracias por ser mi mejor casualidad.","Mi lugar seguro es tu abrazo.",
+"Eres la historia que más quiero vivir.","Contigo aprendí a querer sin miedo.","Eres el motivo de mis pequeños valientes.",
+"Te pienso cuando veo algo bonito.","Eres mi presente y mi deseo.","Tu voz calma cualquier tormenta.",
+"Si quiero soñar, elijo estar contigo.","Eres poema que late y no se cansa.","Eres tan tú que me basta.",
+"Me haces creer en los finales felices.","Quiero un millón de días contigo.","Eres mi sonrisa favorita al despertar.",
+"Con cada beso me encuentro mejor.","Eres el detalle perfecto de mis días.","A tu lado soy mejor versión.",
+"Me enamoro de ti una y otra vez.","Gracias por cada gesto, por existir.","Eres mi pequeño gran universo."
+];
+
+const spiral = document.getElementById("spiral");
+const phraseElements = [];
+const cols = 6;
+const rows = Math.ceil(frases.length / cols);
+const widthStep = window.innerWidth / cols;
+const heightStep = window.innerHeight / rows;
+
+frases.forEach((text,i)=>{
+  const el = document.createElement("div");
+  el.className="phrase";
+  el.textContent = text;
+  spiral.appendChild(el);
+
+  if(el.offsetWidth > window.innerWidth - 20){
+    el.style.fontSize = `${Math.max(12, 12 * (window.innerWidth-20)/el.offsetWidth)}px`;
+  }
+
+  const col = i % cols;
+  const row = Math.floor(i / cols);
+  el.dataset.x = col*widthStep + Math.random()*widthStep*0.3;
+  el.dataset.y = row*heightStep + Math.random()*heightStep*0.3;
+  el.dataset.vx = (Math.random()-0.5)*0.2;
+  el.dataset.vy = (Math.random()-0.5)*0.2;
+  phraseElements.push(el);
+});
+
+function animatePhrases(){
+  phraseElements.forEach(el=>{
+    let x = parseFloat(el.dataset.x);
+    let y = parseFloat(el.dataset.y);
+    x += parseFloat(el.dataset.vx);
+    y += parseFloat(el.dataset.vy);
+
+    const elWidth = el.offsetWidth;
+    const elHeight = el.offsetHeight;
+
+    if(x<0) { x=0; el.dataset.vx*=-1;}
+    if(x>window.innerWidth - elWidth) { x=window.innerWidth - elWidth; el.dataset.vx*=-1;}
+    if(y<0) { y=0; el.dataset.vy*=-1;}
+    if(y>window.innerHeight - elHeight) { y=window.innerHeight - elHeight; el.dataset.vy*=-1;}
+
+    el.dataset.x = x;
+    el.dataset.y = y;
+    el.style.transform = `translate3d(${x}px, ${y}px, 0px)`;
+  });
+  requestAnimationFrame(animatePhrases);
+}
+animatePhrases();
+
+// --- Corazón 3D centrado y fijo ---
+const heart = document.getElementById("heart3d");
+const miniHeartsCount = 400;
+for(let i=0;i<miniHeartsCount;i++){
+  const h = document.createElement("div");
+  h.className="mini-heart";
+  h.textContent="❤";
+
+  const t = Math.random() * Math.PI*2;
+  const s = Math.random();
+  const x = 16*Math.pow(Math.sin(t),3)*s;
+  const y = -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))*s;
+  const z = (Math.random()-0.5)*10;
+  h.style.transform=`translate3d(${x*6}px, ${y*6}px, ${z*6}px)`;
+  heart.appendChild(h);
+}
+</script>
+</body>
+</html>
+
+
+

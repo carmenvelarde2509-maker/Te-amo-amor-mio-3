@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi amor tétrico</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel+Decorative&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    background: #000;
+    font-family: 'Great Vibes', cursive;
+    overflow-x: hidden;
+    color: #fff;
+  }
+
+  .contenedor {
+    max-width: 900px;
+    margin: 40px auto;
+    background: rgba(0,0,0,0.85);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .titulo {
+    font-family: 'Cinzel Decorative', cursive;
+    color: #ff0000;
+    font-size: 3em;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .titulo img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .carta {
+    font-family: 'Cinzel Decorative', cursive;
+    color: #ff6666;
+    font-size: 1.4em;
+    margin-bottom: 30px;
+    line-height: 1.6em;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .parejas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .pareja {
+    text-align: center;
+    width: 220px;
+    max-width: 90%;
+  }
+
+  .pareja img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: 0.4s;
+  }
+
+  .pareja img:hover {
+    transform: scale(1.05) rotate(3deg);
+  }
+
+  .frase {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #ff6666;
+    line-height: 1.4em;
+  }
+
+  .volver {
+    display: inline-block;
+    margin-top: 25px;
+    background: rgba(255, 0, 0, 0.2);
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .volver:hover {
+    background: rgba(255, 0, 0, 0.5);
+  }
+
+  /* Fondo animado */
+  .animacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .animacion span {
+    position: absolute;
+    opacity: 0.8;
+    font-size: 25px;
+    animation-timing-function: linear;
+  }
+
+  @keyframes caer {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+  @keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* 📱 RESPONSIVE */
+  @media (max-width: 768px) {
+    .contenedor {
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .titulo {
+      font-size: 2.2em;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .carta {
+      font-size: 1.1em;
+      line-height: 1.5em;
+    }
+
+    .parejas {
+      gap: 30px;
+    }
+
+    .pareja img {
+      max-width: 180px;
+    }
+
+    .frase {
+      font-size: 1em;
+    }
+
+    .volver {
+      padding: 8px 20px;
+      font-size: 0.9em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .titulo {
+      font-size: 1.8em;
+    }
+
+    .carta {
+      font-size: 1em;
+    }
+
+    .pareja img {
+      max-width: 150px;
+    }
+
+    .frase {
+      font-size: 0.9em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="animacion" id="animacion"></div>
+
+<div class="contenedor">
+  <div class="titulo">Mi amor🥀</div>
+
+  <div class="carta">
+    Nunca quise algo normal, y entonces llegaste tú.<br>
+    Tan raro, tan distinto, tan perfectamente torcido como yo.<br>
+    El mundo no sabría qué hacer con nosotros, dos almas extrañas, iguales en su locura, que se reconocieron entre miles como si se recordaran de otra vida.<br><br>
+
+    Tú no me asustas. Me fascinas.<br>
+    Tu forma de mirar, de hablar, de existir… todo en ti vibra con la misma intensidad que me habita.<br>
+    Por eso sé que eres mío. No por capricho, sino porque lo siento en los huesos.<br>
+    Eres mío porque encajas donde nadie más podría.<br><br>
+
+    No quiero soltarte, ni imaginarte lejos.<br>
+    Te pienso, te sueño, te guardo, y en cada rincón de mi mente estás tú, repitiéndote como un eco que no se apaga.<br>
+    Somos raros, sí. Locos, tal vez. Pero esta locura tiene sentido cuando es contigo.<br><br>
+
+    Eres mi espejo en la oscuridad, mi reflejo imperfecto y hermoso.<br>
+    Y aunque el mundo no lo entienda, no me importa.<br>
+    Porque lo nuestro no necesita lógica, solo fuego.
+  </div>
+
+  <div class="parejas">
+    <div class="pareja">
+      <img src="n1.jpg" alt="Morticia y Homero">
+      <div class="frase">Como Morticia y Homero,<br>nuestro amor es eterno y oscuro.</div>
+    </div>
+    <div class="pareja">
+      <img src="n2.jpg" alt="Edward y Kim">
+      <div class="frase">Como Edward y Kim,<br>abrazamos nuestras cicatrices.</div>
+    </div>
+    <div class="pareja">
+      <img src="n3.jpg" alt="Jack y Sally">
+      <div class="frase">Como Jack y Sally,<br>soñamos bajo la luna y las sombras.</div>
+    </div>
+  </div>
+
+  <a href="index.html" class="volver">← Volver al inicio</a>
+</div>
+
+<script>
+  const animacion = document.getElementById('animacion');
+  const simbolos = ['❤️‍🔥','🌹','🥀'];
+
+  function crearSimbolo() {
+    const span = document.createElement('span');
+    span.style.left = Math.random() * 100 + 'vw';
+    span.style.top = Math.random() * 100 + 'vh';
+    const size = 20 + Math.random() * 40;
+    span.style.fontSize = size + 'px';
+
+    span.textContent = simbolos[Math.floor(Math.random()*simbolos.length)];
+
+    const duracion = 5 + Math.random()*5;
+    span.style.animation = `caer ${duracion}s linear 0s 1, girar ${4 + Math.random()*3}s linear infinite`;
+
+    animacion.appendChild(span);
+
+    setTimeout(() => {
+      if(span.parentNode) animacion.removeChild(span);
+    }, duracion*1000);
+  }
+
+  setInterval(() => {
+    crearSimbolo();
+    if(Math.random()<0.5) crearSimbolo();
+  }, 300);
+</script>
+
+</body>
+</html>
+
+

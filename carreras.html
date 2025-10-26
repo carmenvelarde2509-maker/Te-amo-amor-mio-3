@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vivo un cuarto de milla a la vez... pero contigo soy libre ❤️🔥</title>
+<style>
+  body {
+    margin: 0;
+    background: radial-gradient(ellipse at center, #111 60%, #000 100%);
+    font-family: 'Trebuchet MS', sans-serif;
+    overflow: hidden;
+    position: relative;
+    color: white;
+  }
+
+  h1 {
+    color: #ff4d4d;
+    text-shadow: 0 0 15px rgba(255,0,0,0.6);
+    font-size: 1.8rem;
+    text-align: center;
+    max-width: 90%;
+    margin-top: 10px;
+  }
+
+  p {
+    color: #ccc;
+    font-style: italic;
+    text-align: center;
+  }
+
+  canvas {
+    background: rgba(0, 0, 0, 0.6);
+    border: 3px solid #ff4d4d;
+    border-radius: 12px;
+    display: block;
+    margin: 20px auto;
+  }
+
+  #mensajeFinal {
+    position: absolute;
+    bottom: 20px;
+    color: #ff4d4d;
+    font-size: 1.5rem;
+    text-shadow: 0 0 12px rgba(255,0,0,0.7);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+</style>
+</head>
+<body>
+
+<h1>Vivo un cuarto de milla a la vez... pero cuando estoy contigo, cada segundo vale ❤️🔥</h1>
+<p>Usa flechas ↑ ↓ para acelerar/frenar y ← → para cambiar carril 🏁</p>
+
+<canvas id="canvas" width="800" height="400"></canvas>
+<div id="mensajeFinal">💞 Eres mi copiloto en cada carrera del corazón 💞</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+const cx = canvas.width / 2;
+const cy = canvas.height / 2;
+
+const baseA = 300;
+const baseB = 140;
+const carriles = 4;
+const carrilSpacing = 20;
+
+const MAX_SPEED_KMH = 320;
+const MAX_SPEED = 0.04;
+const MIN_SPEED = 0.005;
+const ACCELERATION = 0.0005;
+
+class Coche {
+  constructor(carril, velocidad, imgSrc) {
+    this.carril = carril;
+    this.velocidad = velocidad;
+    this.theta = 0;
+    this.vueltas = 0;
+    this.img = new Image();
+    this.img.src = imgSrc;
+    this.imgLoaded = false;
+    this.img.onload = () => { this.imgLoaded = true; }
+  }
+
+  getRadio() {
+    return { a: baseA - this.carril * carrilSpacing, b: baseB - this.carril * (carrilSpacing / 2) };
+  }
+
+  update() {
+    this.theta += this.velocidad;
+    if (this.theta > Math.PI*2) {
+      this.theta -= Math.PI*2;
+      this.vueltas++;
+    }
+  }
+
+  draw() {
+    if (!this.imgLoaded) return;
+    const {a,b} = this.getRadio();
+    const x = cx + a * Math.cos(this.theta);
+    const y = cy + b * Math.sin(this.theta);
+    const width = 80;
+    const height = 40;
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(this.theta + Math.PI/2);
+    ctx.drawImage(this.img, -width/2, -height/2, width, height);
+    ctx.restore();
+  }
+}
+
+const jugador = new Coche(1, 0.02, 'prota.png');
+const enemigos = [
+  new Coche(0, 0.02, 'carro.png'),
+  new Coche(2, 0.018, 'carro2.png'),
+  new Coche(3, 0.019, 'carro3.png')
+];
+
+function dibujarPista() {
+  for (let i = 0; i < carriles; i++) {
+    const a = baseA - i*carrilSpacing;
+    const b = baseB - i*(carrilSpacing/2);
+    ctx.strokeStyle = i === jugador.carril ? '#ff4d4d' : '#888';
+    ctx.lineWidth = i === jugador.carril ? 3 : 1.5;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, a, b, 0, 0, 2*Math.PI);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(cx + baseA, cy - baseB);
+  ctx.lineTo(cx + baseA, cy + baseB);
+  ctx.stroke();
+}
+
+// ---- CORAZONES PARPADEANTES CON FORMA REAL ----
+const corazones = [];
+const NUM_CORAZONES = 30;
+
+// Crear corazones aleatorios
+for (let i = 0; i < NUM_CORAZONES; i++) {
+  corazones.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: 10 + Math.random() * 10,
+    alpha: Math.random(),
+    velocidadY: 0.2 + Math.random() * 0.5,
+    parpadeo: 0.01 + Math.random() * 0.03,
+    angulo: Math.random() * Math.PI*2,
+    giro: (Math.random() - 0.5) * 0.02
+  });
+}
+
+// Función para dibujar un corazón
+function dibujarCorazon(x, y, size) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(Math.PI / 4);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.bezierCurveTo(size/2, -size/2, size, size/3, 0, size);
+  ctx.bezierCurveTo(-size, size/3, -size/2, -size/2, 0, 0);
+  ctx.fill();
+  ctx.restore();
+}
+
+function dibujarCorazones() {
+  corazones.forEach(c => {
+    c.alpha += c.parpadeo;
+    if (c.alpha > 1) { c.alpha = 1; c.parpadeo *= -1; }
+    if (c.alpha < 0) { c.alpha = 0; c.parpadeo *= -1; }
+
+    c.y -= c.velocidadY;
+    c.angulo += c.giro;
+    if (c.y < -c.size) c.y = canvas.height + c.size;
+
+    ctx.save();
+    ctx.globalAlpha = c.alpha;
+    ctx.fillStyle = '#ff4d4d';
+    dibujarCorazon(c.x, c.y, c.size);
+    ctx.restore();
+  });
+}
+
+function actualizar() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  dibujarPista();
+  dibujarCorazones(); // dibujamos los corazones antes de los coches
+
+  jugador.update();
+  jugador.draw();
+  enemigos.forEach(e => { e.update(); e.draw(); });
+
+  const velocidadKMH = (jugador.velocidad / MAX_SPEED) * MAX_SPEED_KMH;
+  ctx.fillStyle = 'white';
+  ctx.font = '18px Arial';
+  ctx.fillText(`Vueltas: ${jugador.vueltas} / 9`, 10, 25);
+  ctx.fillText(`Velocidad: ${velocidadKMH.toFixed(0)} km/h`, 10, 50);
+
+  if (jugador.vueltas >= 9) {
+    const mensajeFinal = document.getElementById('mensajeFinal');
+    mensajeFinal.style.opacity = 1;
+    ctx.fillStyle = '#ff4d4d';
+    ctx.font = '32px Arial';
+    const texto = '¡Siempre serás mi campeón del corazón! ❤️🏁';
+    const anchoTexto = ctx.measureText(texto).width;
+    ctx.fillText(texto, (canvas.width - anchoTexto)/2 + 40, canvas.height/2);
+    return;
+  }
+
+  requestAnimationFrame(actualizar);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowUp') {
+    jugador.velocidad += ACCELERATION;
+    if (jugador.velocidad > MAX_SPEED) jugador.velocidad = MAX_SPEED;
+  } else if (e.key === 'ArrowDown') {
+    jugador.velocidad -= ACCELERATION;
+    if (jugador.velocidad < MIN_SPEED) jugador.velocidad = MIN_SPEED;
+  } else if (e.key === 'ArrowLeft') {
+    if (jugador.carril > 0) jugador.carril--;
+  } else if (e.key === 'ArrowRight') {
+    if (jugador.carril < carriles - 1) jugador.carril++;
+  }
+});
+
+actualizar();
+</script>
+
+<!-- Enlace de inicio -->
+<a id="inicio" href="index.html" style="
+  display: block;
+  text-align: center;
+  margin: 15px 0;
+  font-size: 1.2rem;
+  color: #ff8080;
+  text-decoration: none;
+  text-shadow: 0 0 8px rgba(255,128,128,0.7);
+  transition: color 0.3s;
+">🏠 Volver al inicio</a>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

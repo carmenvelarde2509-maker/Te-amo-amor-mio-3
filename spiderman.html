@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Te adoro</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Texto principal */
+h1 {
+  color: #ff4d4d;
+  text-align: center;
+  text-shadow: 2px 2px 10px rgba(255,0,0,0.5);
+  z-index: 3;
+}
+
+/* EMOJIS PARPADEANTES DEL FONDO */
+.emoji {
+  position: absolute;
+  font-size: 1.8rem;
+  animation: blink 3s infinite ease-in-out;
+  opacity: 0.7;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* CONTENEDOR DEL CORAZÓN */
+.heart-container {
+  position: relative;
+  width: 300px; /* más ancho */
+  height: 180px; /* más bajito */
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* CORAZÓN ANCHO Y BONITO */
+.heart {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: lightpink;
+  clip-path: path("M150,50 C150,-10,280,60,150,180 C20,60,150,-10,150,50 Z");
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+  overflow: hidden;
+  transform-origin: center;
+  transition: transform 0.15s ease;
+}
+
+/* RELLENO RECTO */
+.heart-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(to top, red 60%, #ff5c5c 100%);
+  transition: height 0.6s ease-in-out;
+  overflow: hidden;
+}
+
+/* EFECTO DE ONDAS */
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 0, 0, 0.8);
+  border-radius: 40%;
+  animation: wave 5s infinite linear;
+  opacity: 0.6;
+}
+
+.wave:nth-child(2) {
+  background: rgba(255, 50, 50, 0.7);
+  animation-duration: 7s;
+  animation-direction: reverse;
+  opacity: 0.8;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25%) translateY(10px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+/* PERSONAJES */
+.characters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  margin-top: 30px;
+  position: relative;
+  z-index: 3;
+}
+
+.character {
+  width: 80px;
+  transition: transform 0.6s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* MENSAJE FINAL */
+#finalMessage {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #ff4d4d;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  z-index: 3;
+}
+
+/* ENLACE AL INICIO */
+#backLink {
+  margin-top: 30px;
+  text-align: center;
+  z-index: 3;
+}
+
+#backLink a {
+  color: #ff4d4d;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+</style>
+</head>
+<body>
+
+<h1>El amor nos une para siempre ❤️🕷️🕸️</h1>
+
+<!-- CORAZÓN -->
+<div class="heart-container" id="container">
+  <div class="heart" id="heart">
+    <div class="heart-fill" id="heartFill">
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PERSONAJES -->
+<div class="characters">
+  <img src="s2.png" alt="Spiderman" class="character" id="spiderman" style="transform: translateX(-180px);">
+  <img src="s1.png" alt="Spidergirl" class="character" id="spidergirl" style="transform: translateX(180px);">
+</div>
+
+<!-- MENSAJE FINAL -->
+<div id="finalMessage">Tú eres mi camino y siempre serás mi camino ❤️🕷️🕸️💞</div>
+
+<!-- ENLACE PARA REGRESAR AL INICIO -->
+<div id="backLink">
+  <a href="index.html">🔙 Volver al inicio</a>
+</div>
+
+<script>
+const heartFill = document.getElementById('heartFill');
+const spiderman = document.getElementById('spiderman');
+const spidergirl = document.getElementById('spidergirl');
+const finalMessage = document.getElementById('finalMessage');
+const container = document.getElementById('container');
+const heart = document.getElementById('heart');
+
+let clickCount = 0;
+const maxClicks = 10;
+
+/* EFECTO DE LLENADO */
+container.addEventListener('click', () => {
+  if (clickCount >= maxClicks) return;
+  clickCount++;
+
+  heartFill.style.height = (clickCount / maxClicks * 100) + '%';
+
+  // Efecto de latido
+  heart.style.transform = 'scale(1.1)';
+  setTimeout(() => {
+    heart.style.transform = 'scale(1)';
+  }, 150);
+
+  // Movimiento de los personajes
+  const startDistance = 180;
+  const overlap = 15;
+  const distance = startDistance * (1 - clickCount / maxClicks) - overlap * (clickCount / maxClicks);
+  spiderman.style.transform = `translateX(${-distance}px)`;
+  spidergirl.style.transform = `translateX(${distance}px)`;
+
+  // Final
+  if (clickCount === maxClicks) {
+    setTimeout(() => {
+      spiderman.style.transform = `translateX(-${overlap}px)`;
+      spidergirl.style.transform = `translateX(${overlap}px)`;
+      finalMessage.style.opacity = 1;
+    }, 500);
+  }
+});
+
+/* EMOJIS PARPADEANTES UNIFORMES EN TODO EL FONDO */
+const emojis = ["🕷️", "🕸️", "❤️", "💞", "💖"];
+const emojiCount = 80; // Más densidad
+for (let i = 0; i < emojiCount; i++) {
+  const emoji = document.createElement('div');
+  emoji.classList.add('emoji');
+  emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  emoji.style.left = Math.random() * 100 + "%";
+  emoji.style.top = Math.random() * 100 + "%";
+  emoji.style.fontSize = (Math.random() * 2 + 1.2) + "rem";
+  emoji.style.animationDelay = (Math.random() * 3) + "s";
+  document.body.appendChild(emoji);
+}
+</script>
+
+</body>
+</html>

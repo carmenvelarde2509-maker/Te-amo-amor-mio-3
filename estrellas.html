@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Te amo tanto 🌟</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    background: radial-gradient(circle at bottom, #000010, #000014, #0a0026);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    height: 100vh;
+    position: relative;
+    user-select: none;
+  }
+
+  h1 {
+    text-align: center;
+    font-family: 'Great Vibes', cursive;
+    font-size: 3em;
+    margin-top: 20px;
+    color: #9b59b6; /* color violeta-azulado que combina con galaxia */
+    text-shadow: 0 0 3px #6c3483; /* ligero contorno para resaltar sin brillo fuerte */
+  }
+
+  .estrella {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    clip-path: polygon(
+      50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 
+      50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+    );
+    animation: parpadeo 2s infinite ease-in-out;
+    cursor: pointer;
+  }
+
+  @keyframes parpadeo {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+
+  .frase {
+    position: absolute;
+    color: #ffb6c1;
+    font-size: 1.3em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    opacity: 0;
+    animation: flotar 6s ease-in-out forwards;
+    max-width: 300px;
+  }
+
+  @keyframes flotar {
+    0% { transform: translateY(0); opacity: 0; }
+    30% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: translateY(-100px); opacity: 0; }
+  }
+
+  /* ENLACE VOLVER AL INICIO */
+  .volver {
+    position: fixed; /* Siempre visible */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 105, 180, 0.2);
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 10;
+  }
+
+  .volver:hover {
+    background: rgba(255, 105, 180, 0.5);
+  }
+</style>
+</head>
+<body>
+
+<h1>✨ Toca una estrella y deja que el amor brille ✨</h1>
+
+<!-- Enlace al inicio -->
+<div id="backLink">
+  <a href="index.html">🔙 Volver al inicio</a>
+</div>
+
+<script>
+const frases = [
+"🌹 Eres mi persona favorita y mi motivo constante para sonreír.",
+"💫 Me siento tan orgullosa de ti y de todo lo que eres.",
+"💕 Eres ese tipo de amor que no se busca, pero cuando llega, se queda.",
+"🌙 Cuando hablo de ti, mi voz se llena de cariño.",
+"❤️ Me haces sentir segura, tranquila y amada.",
+"🌻 Verte cumplir tus sueños me llena el alma.",
+"🌷 Amo tu forma de ser, tan genuina y tan tú.",
+"💌 Estoy tan agradecida de tenerte en mi vida.",
+"💞 Eres mi lugar bonito en un mundo tan caótico.",
+"🕊️ Me encanta cómo tu amor me hace mejor persona.",
+"🌸 Admiro tu fuerza, tu nobleza y tu forma de amar.",
+"💖 Me enorgullece cada paso que das, grande o pequeño.",
+"🌈 Eres la calma en mi tormenta y el sol en mis días grises.",
+"💫 No sé cómo lo haces, pero siempre logras hacerme feliz.",
+"🌹 Tu sonrisa es mi debilidad y mi refugio al mismo tiempo.",
+"💕 A veces solo te miro y pienso: “qué suerte tengo”.",
+"🌻 Me encanta presumir que tú eres mi amor.",
+"💞 No necesito nada más cuando te tengo cerca.",
+"🌷 Eres mi motivo favorito para creer en el amor.",
+"🌼 Me haces sentir orgullo, ternura y paz a la vez.",
+"❤️ Amo cómo me miras, como si solo existiera yo.",
+"💫 Cada logro tuyo me hace sonreír como si fuera mío.",
+"🕊️ Eres mi hogar, incluso lejos de casa.",
+"🌸 Me encanta lo mucho que brillas sin siquiera notarlo.",
+"💌 Te admiro, te respeto y te amo con todo lo que soy.",
+"🌈 No hay día que no piense en cuánto significas para mí.",
+"💞 Contigo aprendí que el amor bonito sí existe.",
+"🌻 Eres el tipo de persona que hace que todo valga la pena.",
+"💖 Cada detalle tuyo se queda grabado en mi corazón.",
+"🌙 Me haces sentir orgullosa de amarte.",
+"💕 Tu amor es el refugio más cálido que conozco.",
+"🌼 Me encanta verte ser feliz, y más aún si es conmigo.",
+"🌹 Eres el motivo de mis pensamientos más lindos.",
+"💫 A veces te miro y no entiendo cómo tuve tanta suerte.",
+"🌸 Eres mi paz disfrazada de persona.",
+"💌 Me haces creer en lo bonito de lo simple.",
+"🕊️ Eres mi mayor alegría y mi más dulce inspiración.",
+"🌻 No hay orgullo más grande que verte ser tú.",
+"💞 Tu forma de amar me enseña a amar mejor.",
+"🌈 Me encanta todo lo que eres, incluso tus rarezas.",
+"💖 Eres la historia que siempre quise vivir.",
+"🌷 A tu lado, todo tiene sentido.",
+"🌙 No hay día que no agradezca por haberte encontrado.",
+"💕 Eres mi pensamiento más bonito antes de dormir.",
+"🌼 Tu amor me da fuerzas, calma y esperanza.",
+"💫 Me siento orgullosa de ti, de tus logros y de tu corazón.",
+"❤️ Me encanta cómo haces que mi mundo sea más suave.",
+"🌹 Te amo no solo por lo que eres, sino por cómo me haces sentir.",
+"💞 Contigo, incluso lo normal se siente mágico.",
+"🌻 Eres mi orgullo, mi paz y mi amor más sincero."
+];
+
+// Crear estrellas
+for (let i = 0; i < 150; i++) {
+  const estrella = document.createElement('div');
+  estrella.className = 'estrella';
+  estrella.style.top = Math.random() * window.innerHeight + 'px';
+  estrella.style.left = Math.random() * window.innerWidth + 'px';
+  estrella.style.animationDelay = Math.random() * 2 + 's';
+  estrella.style.transform = `rotate(${Math.random() * 360}deg) scale(${Math.random() * 1.2 + 0.5})`;
+  document.body.appendChild(estrella);
+
+  estrella.addEventListener('click', (event) => {
+    mostrarFrase(event.clientX, event.clientY);
+  });
+}
+
+function mostrarFrase(x, y) {
+  const frase = document.createElement('div');
+  frase.className = 'frase';
+  frase.textContent = frases[Math.floor(Math.random() * frases.length)];
+  frase.style.left = (x - 150) + 'px';
+  frase.style.top = (y - 20) + 'px';
+  document.body.appendChild(frase);
+  setTimeout(() => frase.remove(), 6000);
+}
+</script>
+</body>
+</html>
+
+
